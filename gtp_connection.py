@@ -235,8 +235,8 @@ class GtpConnection():
         if GoBoardUtil.generate_legal_moves(self.board, self.board.current_player): 
             self.respond("unknown")
         else:
-            winner = "black" if self.current_player == WHITE else "white"
-            self.response(winner)
+            winner = "black" if self.board.current_player == WHITE else "white"
+            self.respond(winner)
 
 
     def play_cmd(self, args):
