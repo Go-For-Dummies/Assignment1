@@ -231,7 +231,13 @@ class GtpConnection():
             
     def gogui_rules_final_result_cmd(self, args):
         """ Implement this function for Assignment 1 """
-        self.respond("unknown")
+        """ if legal moves are available to a player, then the game is not over """
+        if GoBoardUtil.generate_legal_moves(self.board, self.board.current_player): 
+            self.respond("unknown")
+        else:
+            winner = "black" if self.current_player == WHITE else "white"
+            self.response(winner)
+
 
     def play_cmd(self, args):
         """ Modify this function for Assignment 1 """
