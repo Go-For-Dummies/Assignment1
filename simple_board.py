@@ -144,22 +144,16 @@ class SimpleGoBoard(object):
                     pointstack.append(nb)
         return marker
 
-    def _detect_and_process_capture(self, nb_point):
+    def _detect_capture(self, nb_point):
         """
         Check whether opponent block on nb_point is captured.
-        If yes, remove the stones.
-        Returns the stone if only a single stone was captured,
-        and returns None otherwise.
-        This result is used in play_move to check for possible ko
+        If yes, return True, otherwise return False
         """
         single_capture = None 
         opp_block = self._block_of(nb_point)
         if not self._has_liberty(opp_block):
-            captures = list(where1d(opp_block))
-            self.board[captures] = EMPTY
-            if len(captures) == 1:
-                single_capture = nb_point
-        return single_capture
+            return True
+        return False
 
     def play_move(self, point, color):
         """
