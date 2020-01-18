@@ -115,7 +115,7 @@ class GoBoardUtil(object):
     def generate_random_move(board, color, use_eye_filter):
         """
         Generate a random move.
-        Return PASS if no move found
+        Return None if no move found
 
         Arguments
         ---------
@@ -124,14 +124,11 @@ class GoBoardUtil(object):
         color : BLACK, WHITE
             the color to generate the move for.
         """
-        moves = board.get_empty_points()
-        np.random.shuffle(moves)
-        for move in moves:
-            legal = not (use_eye_filter and board.is_eye(move, color)) \
-                    and board.is_legal(move, color)
-            if legal:
-                return move
-        return PASS
+        moves = GoBoardUtil.generate_legal_moves(board, color)
+        if moves: 
+            np.random.shuffle(moves)
+            return moves[0]
+        return None
 
     @staticmethod
     def opponent(color):
