@@ -245,7 +245,7 @@ class GtpConnection():
             color = color_to_int(board_color)
             # First check is move is a pass (illegal)
             if args[1].lower() == 'pass':
-                self.error("illegal move: {} {}".format(board_color, board_move))
+                self.error("illegal move: {} {} pass".format(board_color, board_move))
                 return
             # Next check if move is the wrong color
             if not self.board.current_player == color:
@@ -265,33 +265,13 @@ class GtpConnection():
                 self.error("illegal move: {} {} wrong coordinate"
                            .format(board_color, board_move))
                 return
-            # Next check if occupied
-            if self.board.board[move] != EMPTY:
-                self.error("illegal move: {} {} occupied"
-                           .format(board_color, board_move))
+            # Attempt to play
+            tryplay = self.board.play_move(move, color)
+            if not tryplay[0]:
+                self.respond("illegal move: {} {} {}".format(board_color, board_move, tryplay[1].name))
                 return
-            # Place stone and check for capture
-            opp_color = GoBoardUtil.opponent(color)
-            self.board.board[move] = color
-            neighbors = self.board._neighbors(move)
-            for nb in neighbors:
-                if self.board.board[nb] == opp_color:
-                    if self.board._detect_capture(nb):
-                        # Move is capture. Undo move, illegal
-                        self.board.board[move] = EMPTY
-                        self.error("illegal move: {} {} capture"
-                           .format(board_color, board_move))
-                        return
-            # Check for suicide
-            block = self.board._block_of(move)
-            if not self.board._has_liberty(block):
-                self.board.board[move] = EMPTY # undo suicide move
-                self.error("illegal move: {} {} suicide"
-                           .format(board_color, board_move))
-                return
-            # All checks passed, keep move and change current player
-            self.board.current_player = GoBoardUtil.opponent(color)
-            self.debug_msg("Move: {}\nBoard:\n{}\n".
+            else:
+                self.debug_msg("Move: {}\nBoard:\n{}\n".
                                 format(board_move, self.board2d()))
             self.respond()
         except Exception as e:
