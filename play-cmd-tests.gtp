@@ -7,19 +7,19 @@ play b a1
 play w a2
 
 play w a1
-#? illegal move: w a1 wrong color
+#? [illegal move: w a1 wrong color]
 
 play b a1
-#? illegal move: b a1 occupied
+#? [illegal move: b a1 occupied]
 
 play b b2
-#? illegal move: b b2 capture
+#? [illegal move: b b2 capture]
 
 play b b1
 #game is over at this point
 
 play w b2
-#? illegal move: w b2 capture
+#? [illegal move: w b2 capture]
 
 boardsize 7
 clear_board
@@ -43,12 +43,12 @@ showboard
 # [2 0 0 0 0 0 0]
 # [0 0 0 0 0 0 0]]
 
-play b a2
-#? illegal move: b a2 wrong color
+play b b2
+#? [illegal move: b b2 wrong color]
 
-play w a2
-#? illegal move: w a2 suicide
+play w b2
+#? [illegal move: w b2 suicide]
 
 play w a7
-play b a2
-#? illegal move: b a2 capture
+play b b2
+#? [illegal move: b b2 capture]
