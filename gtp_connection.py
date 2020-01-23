@@ -129,7 +129,8 @@ class GtpConnection():
 
     def error(self, error_msg):
         """ Send error msg to stdout """
-        stdout.write('? {}\n\n'.format(error_msg))
+        # Deleted leadng '?' to match assignment spec
+        stdout.write('{}\n\n'.format(error_msg))
         stdout.flush()
 
     def respond(self, response=''):
@@ -253,20 +254,32 @@ class GtpConnection():
             board_color = args[0].lower()
             board_move = args[1]
             color = color_to_int(board_color)
+            # First check is move is a pass (illegal)
             if args[1].lower() == 'pass':
-                self.board.play_move(PASS, color)
-                self.board.current_player = GoBoardUtil.opponent(color)
-                self.respond()
+                self.error("illegal move: {} {} pass".format(board_color, board_move))
                 return
-            coord = move_to_coord(args[1], self.board.size)
+            # Next check if move is the wrong color
+            if not self.board.current_player == color:
+                self.error("illegal move: {} {} wrong color"
+                            .format(board_color, board_move))
+                return
+            # Next validate coordinate
+            try:
+                coord = move_to_coord(args[1], self.board.size)
+            except ValueError:
+                self.error("illegal move: {} {} wrong coordinate"
+                            .format(board_color, board_move))
+                return
             if coord:
                 move = coord_to_point(coord[0],coord[1], self.board.size)
             else:
-                self.error("Error executing move {} converted from {}"
-                           .format(move, args[1]))
+                self.error("illegal move: {} {} wrong coordinate"
+                           .format(board_color, board_move))
                 return
-            if not self.board.play_move(move, color):
-                self.respond("Illegal Move: {}".format(board_move))
+            # Attempt to play
+            tryplay = self.board.play_move(move, color)
+            if not tryplay[0]:
+                self.respond("illegal move: {} {} {}".format(board_color, board_move, tryplay[1].name))
                 return
             else:
                 self.debug_msg("Move: {}\nBoard:\n{}\n".
