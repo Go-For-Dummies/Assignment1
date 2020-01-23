@@ -129,8 +129,7 @@ class GtpConnection():
 
     def error(self, error_msg):
         """ Send error msg to stdout """
-        # Deleted leadng '?' to match assignment spec
-        stdout.write('{}\n\n'.format(error_msg))
+        stdout.write('?{}\n\n'.format(error_msg))
         stdout.flush()
 
     def respond(self, response=''):
