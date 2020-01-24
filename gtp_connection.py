@@ -253,32 +253,32 @@ class GtpConnection():
             board_color = args[0].lower()
             board_move = args[1]
             color = color_to_int(board_color)
-            # First check is move is a pass (illegal)
-            if args[1].lower() == 'pass':
-                self.error("illegal move: {} {} pass".format(board_color, board_move))
-                return
-            # Next check if move is the wrong color
+            # First check if move is the wrong color
             if not self.board.current_player == color:
-                self.error("illegal move: {} {} wrong color"
+                self.error("illegal move: \"{} {}\" wrong color"
                             .format(board_color, board_move))
                 return
             # Next validate coordinate
             try:
                 coord = move_to_coord(args[1], self.board.size)
             except ValueError:
-                self.error("illegal move: {} {} wrong coordinate"
+                self.error("illegal move: \"{} {}\" wrong coordinate"
                             .format(board_color, board_move))
                 return
             if coord:
                 move = coord_to_point(coord[0],coord[1], self.board.size)
             else:
-                self.error("illegal move: {} {} wrong coordinate"
+                self.error("illegal move: \"{} {}\" wrong coordinate"
                            .format(board_color, board_move))
+                return
+            # Next check if move is a pass (illegal)
+            if args[1].lower() == 'pass':
+                self.error("illegal move: \"{} {}\" wrong coordinate".format(board_color, board_move))
                 return
             # Attempt to play
             tryplay = self.board.play_move(move, color)
             if not tryplay[0]:
-                self.respond("illegal move: {} {} {}".format(board_color, board_move, tryplay[1].name))
+                self.respond("illegal move: \"{} {}\" {}".format(board_color, board_move, tryplay[1].name))
                 return
             else:
                 self.debug_msg("Move: {}\nBoard:\n{}\n".

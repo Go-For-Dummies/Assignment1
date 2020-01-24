@@ -6,20 +6,20 @@ clear_board
 play b a1
 play w a2
 
-play w a1
-#? [illegal move: w a1 wrong color]
+00 play w a1
+#? [illegal move: "w a1" wrong color]
 
-play b a1
-#? [illegal move: b a1 occupied]
+10 play b a1
+#? [illegal move: "b a1" occupied]
 
-play b b2
-#? [illegal move: b b2 capture]
+20 play b b2
+#? [illegal move: "b b2" capture]
 
-play b b1
+30 play b b1
 #game is over at this point
 
-play w b2
-#? [illegal move: w b2 capture]
+40 play w b2
+#? [illegal move: "w b2" capture]
 
 boardsize 7
 clear_board
@@ -43,12 +43,24 @@ showboard
 # [2 0 0 0 0 0 0]
 # [0 0 0 0 0 0 0]]
 
-play b b2
-#? [illegal move: b b2 wrong color]
+50 play b pass
+#? [illegal move: "b pass" wrong color]
 
-play w b2
-#? [illegal move: w b2 suicide]
+60 play w pass
+#? [illegal move: "w pass" wrong coordinate]
+
+70 play b b2
+#? [illegal move: "b b2" wrong color]
+
+80 play w b2
+#? [illegal move: "w b2" suicide]
 
 play w a7
-play b b2
-#? [illegal move: b b2 capture]
+90 play b b2
+#? [illegal move: "b b2" capture]
+
+100 play b b13
+#? [illegal move: "b b13" wrong coordinate]
+
+110 play b notacoordinate
+#? [illegal move: "b notacoordinate" wrong coordinate]

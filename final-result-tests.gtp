@@ -4,29 +4,29 @@
 boardsize 2
 clear_board
 
-gogui-rules_final_result
+00 gogui-rules_final_result
 #? [unknown]
 
 play b a1 
 
-gogui-rules_final_result
+10 gogui-rules_final_result
 #? [unknown]
 
 play w a2 
 
-gogui-rules_final_result
+20 gogui-rules_final_result
 #? [unknown]
 
 play b b1
 
-gogui-rules_final_result
+30 gogui-rules_final_result
 #? [black]
 # black wins, whites final move would be a capture
 
 boardsize 3
 clear_board
 
-gogui-rules_final_result
+40 gogui-rules_final_result
 #? [unknown]
 # game is not finished
 
@@ -38,7 +38,7 @@ play b c1
 play w a3
 play b b3
 
-gogui-rules_final_result
+50 gogui-rules_final_result
 #? [black]
 # black wins, whites final move would be a capture
 
@@ -53,7 +53,7 @@ play w b3
 play b c1
 play w c3
 
-gogui-rules_final_result
+60 gogui-rules_final_result
 #? [white]
 # white wins, blacks final move would be a capture
 
@@ -74,6 +74,6 @@ play b c3
 play w a4
 play b c4
 
-gogui-rules_final_result 
+70 gogui-rules_final_result 
 #? [black] 
 # black wins, all final moves are suicide for white

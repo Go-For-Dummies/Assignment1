@@ -6,7 +6,7 @@ clear_board
 genmove b
 genmove w
 genmove b
-genmove w 
+00 genmove w 
 #? [resign]
 # white will have to resign because on a 2x2 board it is only possible to make 3 moves
 
@@ -21,10 +21,10 @@ play b a3
 play w c2 
 play b b1 
 
-genmove w
+10 genmove w
 #? [C3]
 
-genmove b 
+20 genmove b 
 #? [resign]
 # black will have to resign because the last move is a capture 
 
@@ -38,7 +38,7 @@ play b c1
 play w a3
 play b b3
 
-genmove w 
+30 genmove w 
 #? [resign]
 # white resigns because the final move would be a capture
 
@@ -52,10 +52,10 @@ play b b1
 play w b3
 play b c1
 
-genmove w 
+40 genmove w 
 #? [C3]
 
-genmove b 
+50 genmove b 
 #? [resign]
 # white wins, blacks final move would be a capture
 
@@ -76,6 +76,6 @@ play b c3
 play w a4
 play b c4
 
-genmove w 
+60 genmove w 
 #? [resign]
 # white resigns because the final moves are all suicide
