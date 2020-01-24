@@ -129,7 +129,7 @@ class GtpConnection():
 
     def error(self, error_msg):
         """ Send error msg to stdout """
-        stdout.write('?{}\n\n'.format(error_msg))
+        stdout.write('? {}\n\n'.format(error_msg))
         stdout.flush()
 
     def respond(self, response=''):
@@ -255,25 +255,25 @@ class GtpConnection():
             color = color_to_int(board_color)
             # First check if move is the wrong color
             if not self.board.current_player == color:
-                self.error("illegal move: \"{} {}\" wrong color"
+                self.respond("illegal move: \"{} {}\" wrong color"
                             .format(board_color, board_move))
                 return
             # Next validate coordinate
             try:
                 coord = move_to_coord(args[1], self.board.size)
             except ValueError:
-                self.error("illegal move: \"{} {}\" wrong coordinate"
+                self.respond("illegal move: \"{} {}\" wrong coordinate"
                             .format(board_color, board_move))
                 return
             if coord:
                 move = coord_to_point(coord[0],coord[1], self.board.size)
             else:
-                self.error("illegal move: \"{} {}\" wrong coordinate"
+                self.respond("illegal move: \"{} {}\" wrong coordinate"
                            .format(board_color, board_move))
                 return
             # Next check if move is a pass (illegal)
             if args[1].lower() == 'pass':
-                self.error("illegal move: \"{} {}\" wrong coordinate".format(board_color, board_move))
+                self.respond("illegal move: \"{} {}\" wrong coordinate".format(board_color, board_move))
                 return
             # Attempt to play
             tryplay = self.board.play_move(move, color)
